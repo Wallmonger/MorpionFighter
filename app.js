@@ -31,7 +31,7 @@ let petiteWin = document.getElementById("musicalSFPetiteWin");
 
 let customStageKoAnimation = 0;
 
-let SfxOn = 0;
+let SfxOn = 1;
 
 disableAudio.addEventListener("click", (audioHandler));
 
