@@ -8,6 +8,7 @@ body {
     background : url(Img/arcadescreen.jpg) no-repeat;
     background-size: cover;
     overflow-y: hidden;
+   
     
     font-size: 10px;
     font-family: 'Chakra Petch', sans-serif;
@@ -509,11 +510,18 @@ border-bottom: none;
 
 .pic:hover {
   font-size: 2.8rem;
-  border: 2px solid white;
-  background-color: purple;
+  border: 2px solid rgb(0, 0, 0);
+  background-color: rgb(0, 0, 0);
+  color: white;
   cursor: pointer;
   opacity: 1;
+  animation: picover 0.5s ease alternate infinite;
   
+}
+
+@keyframes picover {
+  from {box-shadow: -1px 0px 0px 3px rgb(255, 255, 255); color: rgb(150, 150, 150);}
+  to {box-shadow: -1px 0px 20px 3px rgb(255, 255, 255); color: rgb(0, 162, 255);}
 }
 
 #buttonPlayBalrog {
@@ -550,7 +558,7 @@ border-bottom: none;
 }
 
 .enableaudio {
-  background: url(Img/mute.jpg) no-repeat center;
+  background: url(Img/sonactif.jpg) no-repeat center;
   background-size: cover;
   display: flex;
   align-items: center;
@@ -692,6 +700,7 @@ border-bottom: none;
 
     .buttonContinuer {
       font-size: 1rem;
+      width: 100%;
     }
 }
 
@@ -828,11 +837,6 @@ border-bottom: none;
     .buttonCurrentPlayer {
       font-size: 0.6rem;
     }
-    
-    .buttonContinuer {
-      font-size: 1rem;
-      width: 100%;
-    }
 }
 
 @media screen and (max-width: 423px) {
@@ -898,11 +902,6 @@ body {
     right : 0px !important;
     position: fixed;
    }
-    
-    .buttonContinuer {
-      font-size: 1rem;
-      width: 100%;
-    }
 }
 
 
@@ -1029,10 +1028,5 @@ body {
 
     .gridbottom {
       grid-template-columns: 0% 100% 0%;
-    }
-      
-      .buttonContinuer {
-      font-size: 1rem;
-      width: 100%;
     }
   }
