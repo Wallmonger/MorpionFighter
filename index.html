@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morpion</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oi&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@1,600&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@1,700&display=swap" rel="stylesheet">
+
+
+
+    <link rel="stylesheet" href="app.css">
+    <script src="app.js" defer></script>
+</head>
+<body id="bodydy">
+  
+   <div class="topbar">
+   
+    
+    <img src="Img/ryu.png" alt="ryu" class="imgspe">     <img src="Img/guile.png" alt="guile" class="imgspe2">  
+<div class="buttons-container">
+    <button id="lol">Load Game</button>
+    <button id="clearstorage">Clear Storage</button>
+    
+    <div class="interface" id="numParties">Parties jouées : 0</div>
+     
+    
+    <div class="interface" id="numCoups">Coups restants : 9</div>                         <!-- Nombre de coups restant -->
+                                       <!--VS CPU-->                               
+                   <!--Continuer la partie, effacer tout-->
+                   <button id="buttonDisableAudio" class="enableaudio" ></button> 
+    <button class="button buttonnewgame" id="refresh">New Game</button>
+   
+    
+    
+       
+    
+</div>
+
+ <br> 
+ <div class="hpcontainer">
+    <div class="bubble1hpborder"> 
+        <div class="bubble1hp"></div> 
+    </div> 
+        
+        <select name="Nombre de parties" id="gameSet" class="listparties">                           <!--CHOIX DU NOMBRE DE PARTIES-->
+        
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        
+        </select>
+                      
+    <div class="bubble2hpborder">
+        <div class="bubble2hp"></div>
+  </div>
+   <div>        
+               <div class="nameOfThePlayer">Player 1</div>  <div class="nameOfThePlayer2">Player 2</div>                                  <!--top fight-->
+        <div class="scorecontainerj1">
+        
+        <div class="fivefive"></div>
+        <div class="fourfour"></div>
+        <div class="threethree"></div>
+        <div class="twotwo"></div>
+        <div class="oneone"></div>
+                    </div></div>    
+                     <div><div class="buttonCurrentPlayer" id="playerTurn" data-CurrentPlayer="">Joueur qui joue</div> <!-- current player playing --></div>
+    <div class="scorecontainerj2">
+        <div class="oneone2"></div>
+        <div class="twotwo2"></div>
+        <div class="threethree2"></div>
+        <div class="fourfour2"></div>
+        <div class="fivefive2"></div>
+    </div>
+    </div>
+</div>
+<div class="buttons-container" style="position: relative; z-index : 4; border-top: 4px solid black;">
+    <div class="receive1"></div>
+    <label for="vsTwo" class="labeltrogro">vsTWO</label>                                                      <!--VS PLAYER TWO-->
+    <input type="radio" name="versusmod" id="vsTwo" class="radio">
+    <label for="vsCpu" class="labeltrogro">vsCPU</label>
+    <input type="radio" name="versusmod" id="vsCpu">
+    <label for="vsCpuHell" class="labeltrogro">vsCPU++</label>
+    <input type="radio" name="versusmod" id="vsCpuHell">
+    <div class="receive2"></div>                        <!-- Numéro de la partie actuelle --></div>
+    <div class="piccontainer"> <div class="pic">&#9836</div></div>
+<div class="buttonContinuerContainer"> <button class="button buttonContinuer" id="restartGame">Continuer</button>  
+</div>
+              <!--ECRAN DE VICTOIRE-->
+              
+               
+<div class="gridbottom">
+         <div class="gridleft"></div>
+                <div class="blackMorpionScreen">
+                       <div class="morpion-container">            <!--CONTENEUR DE TOUTES LES CASES-->
+                                          <div class="morpion-box" id="box0"></div>
+                                          <div class="morpion-box" id="box1"></div>
+                                          <div class="morpion-box" id="box2"></div>
+                                          <div class="morpion-box" id="box3"></div>
+                                          <div class="morpion-box" id="box4" ></div>
+                                          <div class="morpion-box" id="box5"></div>
+                                          <div class="morpion-box" id="box6"></div>
+                                          <div class="morpion-box" id="box7"></div>
+                                          <div class="morpion-box" id="box8"></div>
+                       </div>
+                </div> 
+          <div class="gridright"></div>      
+</div>
+
+<audio id="musicalSFPunch" muted>
+    <source src="Sound/punch.mp3" type="audio/mpeg"> 
+  </audio>
+  <audio id="musicalSFKick" muted>
+    <source src="Sound/kick.mp3" type="audio/mpeg"> 
+  </audio>
+
+
+
+<audio id="musicalSFKen" loop>
+    <source src="Sound/music.mp3" type="audio/mpeg"> 
+  </audio>
+  <audio id="musicalSFRyu" loop>
+    <source src="Sound/Ryu.mp3" type="audio/mpeg"> 
+  </audio>
+  <audio id="musicalSFGuile" loop>
+    <source src="Sound/Guile.mp3" type="audio/mpeg"> 
+  </audio> 
+  <audio id="musicalSFBalrog" loop>
+    <source src="Sound/Balrog.mp3" type="audio/mpeg"> 
+  </audio> 
+  <audio id="musicalSFKO" muted>
+    <source src="Sound/ko.mp3" type="audio/mpeg"> 
+  </audio>
+  <audio id="musicalSFYouWin" muted>
+    <source src="Sound/youwin.mp3" type="audio/mpeg"> 
+  </audio>
+  <audio id="musicalSFYouLose" muted>
+    <source src="Sound/youlose.mp3" type="audio/mpeg"> 
+  </audio>
+  <audio id="musicalSFOpening" muted>
+    <source src="Sound/opening.mp3" type="audio/mpeg"> 
+  </audio>
+  <audio id="musicalSFPetiteWin" muted>
+    <source src="Sound/petitewin.mp3" type="audio/mpeg"> 
+  </audio>
+<div class="soundboard">
+    
+<button id="buttonPlay">&#9658</button>
+<button id="buttonPlayRyu">&#9658</button>
+<button id="buttonPlayGuile">&#9658</button>
+<button id="buttonPlayBalrog">&#9658</button>
+
+<button id="buttonVolumeMinus" class="minus" style="background-color: rgb(18, 202, 74);">Volume -</button>
+<button id="buttonPause" class="pause" style="background-color: rgb(24, 24, 24);">&#10074&#10074</button>
+<button id="buttonVolumePlus" class="plus" style="background-color: rgb(172, 0, 0);">Volume +</button>
+
+</div>
+
+</body>
+</html>
