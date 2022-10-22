@@ -828,6 +828,11 @@ border-bottom: none;
     .buttonCurrentPlayer {
       font-size: 0.6rem;
     }
+    
+    .buttonContinuer {
+      font-size: 1rem;
+      width: 100%;
+    }
 }
 
 @media screen and (max-width: 423px) {
@@ -893,6 +898,11 @@ body {
     right : 0px !important;
     position: fixed;
    }
+    
+    .buttonContinuer {
+      font-size: 1rem;
+      width: 100%;
+    }
 }
 
 
@@ -1019,5 +1029,10 @@ body {
 
     .gridbottom {
       grid-template-columns: 0% 100% 0%;
+    }
+      
+      .buttonContinuer {
+      font-size: 1rem;
+      width: 100%;
     }
   }
