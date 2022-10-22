@@ -6,6 +6,7 @@ body {
     margin: 0;
     padding: 0;
     background : url(Img/arcadescreen.jpg) no-repeat;
+    background-attachment: fixed !important;
     background-size: cover;
     overflow-y: hidden;
    
