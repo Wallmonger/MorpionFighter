@@ -854,6 +854,10 @@ border-bottom: none;
 
 @media screen and (max-width: 423px) {
 
+ .refreshthat {
+    width: 100px !important;
+  }    
+    
 body {
   width: 100%;
 }
