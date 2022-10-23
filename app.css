@@ -266,7 +266,8 @@ border-radius: 5px;
 
 
 .listparties {
-  background: url(Img/selectlist.jpg) no-repeat center;
+  background: url(Img/style.jpg) no-repeat center;
+  background-size: cover;
   width: 100%;
   font-family: 'Chakra Petch', sans-serif;
   color: white;
