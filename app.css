@@ -548,6 +548,10 @@ border-bottom: none;
   background-size: cover;
 }
 
+#buttonPlayBalrog:hover, #buttonPlayGuile:hover, #buttonPlayRyu:hover, #buttonPlay:hover {
+  font-size: 2rem;
+}
+
 .minus {
         border: 2px solid white;
 }
