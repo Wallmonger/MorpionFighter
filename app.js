@@ -45,6 +45,10 @@ function audioHandler () {
     disableAudio.muted = false;
     punch.muted = false;
     kick.muted = false;
+    musiqueGuile.muted = false;
+    musiqueKen.muted = false;
+    musiqueRyu.muted = false;
+    musiqueBalrog.muted = false;
     disableAudio.style.background = "url(Img/sonactif.jpg) no-repeat center"
     disableAudio.style.backgroundSize = "cover"
     
@@ -59,6 +63,10 @@ function audioHandler () {
     disableAudio.muted = true;
     punch.muted = true;
     kick.muted = true;
+    musiqueGuile.muted = true;
+    musiqueKen.muted = true;
+    musiqueRyu.muted = true;
+    musiqueBalrog.muted = true;    
     disableAudio.style.background = "url(Img/mute.jpg) no-repeat center"
     disableAudio.style.backgroundSize = "cover"
     
