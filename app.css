@@ -123,6 +123,12 @@ input[type="radio"]:checked {
 
 .refreshthat {
   animation: refresh 0.5s ease alternate infinite;
+  position: absolute;
+  width: 50%;
+  border-radius: 150px;
+  height: 100px;
+  bottom: 0;
+  cursor: pointer;
 }
 
 @keyframes refresh {
