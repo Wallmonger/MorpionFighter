@@ -423,6 +423,7 @@ function vsTwoChecked () { if (vsTwo.checked === true) {                        
         boxTotalTrigger1v1();
         vsCpu.style.pointerEvents = "none";
         petiteWin.play();
+        document.querySelector(".vsTwoStyle").style.backgroundColor = "blue"
         
        
 }}
@@ -437,6 +438,7 @@ function vsCpuChecked () {
         document.querySelector(".imgspe2").src = "Img/bender.png";
         document.querySelector(".nameOfThePlayer2").innerHTML = "Bender";
         petiteWin.play();
+        document.querySelector(".vsCpuStyle").style.backgroundColor = "blue"
         
         
         
