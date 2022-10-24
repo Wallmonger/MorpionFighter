@@ -124,16 +124,17 @@ input[type="radio"]:checked {
 .refreshthat {
   animation: refresh 0.5s ease alternate infinite;
   position: absolute;
-  width: 50%;
+  width: 30%;
   border-radius: 150px;
-  height: 100px;
-  bottom: 0;
+  height: 50px;
+  bottom: 0%;
+  z-index: 5;
   cursor: pointer;
 }
 
 @keyframes refresh {
   from {box-shadow: -1px 0px 0px 3px rgb(255, 255, 255); color: rgb(150, 150, 150);}
-  to {box-shadow: -1px 0px 300px 3px rgb(255, 255, 255); color: rgb(0, 162, 255);}
+  to {box-shadow: -1px 0px 100px 3px rgb(255, 255, 255); color: rgb(0, 162, 255);}
 }
 
 .interface {
@@ -272,8 +273,8 @@ border-radius: 5px;
 
 
 .listparties {
-  background: url(Img/style.jpg) no-repeat center;
-  background-size: cover;
+  background: rgb(0,0,0);
+  background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(2,0,74,1) 16%, rgba(8,0,255,1) 51%, rgba(2,0,74,1) 85%, rgba(0,0,0,1) 100%);
   width: 100%;
   font-family: 'Chakra Petch', sans-serif;
   color: white;

@@ -299,7 +299,7 @@ if (winningStreak === 3 || winningStreak2 === 3 || winningStreak3 === 3|| winnin
 
 
 
-function boxTotalTrigger1vCPU () {                                                    // MODE 1 JOUEUR
+function boxTotalTrigger1vCPU () {                                                    // MODE CPu vs JOUEUR
     playerTurn.innerHTML = "Humain, commencez"
     for (let box of boxTotal) {                                                  // PARCOURIR TOUS LES ELEMENTS DE L'ARRAY, ET 
                                                                                    // ASSIGNER A BOX
@@ -318,7 +318,7 @@ function boxTotalTrigger1vCPU () {                                              
                       box.style.background = "url(Img/circle.png) no-repeat center";           // Insére le 0 à l'endroit cliqué
                       box.style.backgroundSize = "cover";
                       
-                      playerTurn.innerHTML = "Roboto, les triangles"   // Affichage du joueur suivant
+                      playerTurn.innerHTML = "Bender, les carrés"   // Affichage du joueur suivant
                       
                       box.classList.add('bloque');                // ajoute la classe bloque, qui retournera Else la prochaine fois
                       
@@ -367,7 +367,7 @@ function letPlayerPlay () {                                                     
             hitNumber.innerHTML = "Coups restants : " + nombreDeCoups; // -1 compteur de coups
            
             boxPlayground[dumbCpu] = 10;                                  // écrit 10 dans la zone choisie
-            boxTotal[dumbCpu].style.background = "url(Img/triangle.png) no-repeat center";                            // signature du robot
+            boxTotal[dumbCpu].style.background = "url(Img/square.png) no-repeat center";                            // signature du robot
             boxTotal[dumbCpu].style.backgroundSize = "cover";
             boxTotal[dumbCpu].classList.add("bloque");                    // bloqué pour l'utilisateur
             playerTurn.innerHTML = "Joueur 1, les ronds";                   // Signal à qui de jouer
@@ -422,6 +422,7 @@ restartGame.addEventListener("click", () => {                         // Efface 
 function vsTwoChecked () { if (vsTwo.checked === true) {                           // Choix du mode de jeu
         boxTotalTrigger1v1();
         vsCpu.style.pointerEvents = "none";
+        vsCpuHell.style.pointerEvents = "none";
         petiteWin.play();
         document.querySelector(".vsTwoStyle").style.backgroundColor = "blue"
         
@@ -435,8 +436,10 @@ function vsCpuChecked () {
     if (vsCpu.checked === true) {
         boxTotalTrigger1vCPU();
         vsTwo.style.pointerEvents = "none";
+        vsCpuHell.style.pointerEvents = "none";
         document.querySelector(".imgspe2").src = "Img/bender.png";
         document.querySelector(".nameOfThePlayer2").innerHTML = "Bender";
+        document.querySelector(".nameOfThePlayer2").style.color = "#25BC2D"
         petiteWin.play();
         document.querySelector(".vsCpuStyle").style.backgroundColor = "blue"
         
@@ -565,7 +568,7 @@ function victoryScreen () {
 
     let cachecache =  document.querySelector(".morpion-container");
     cachecache.style.visibility = "hidden";
-    komusic.volume -= 0.5;
+    komusic.volume = 0.2;
     komusic.play();
     
 }
@@ -967,9 +970,323 @@ else if (boxPlayground[2] + boxPlayground[4] + boxPlayground[6] == 3 || boxPlayg
 
 
 
-////// METTRE VALEUR DANS LET 1,2,3,4,5 POUR SWITCH BACKGROUND URL
-
-
 document.getElementById("clearstorage").addEventListener("click", () => {
     localStorage.clear();
 })
+
+// SUPERMAX ______________________________________________________________________
+// _______________________________________________________________________________
+// _______________________________________________________________________________
+// _______________________________________________________________________________
+// _______________________________________________________________________________
+// _______________________________________________________________________________
+// _______________________________________________________________________________
+
+
+
+// Step 3 - Store the board’s current state in an array and define each mark's owner:
+const currentBoardState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+const aiMark = "X";
+const humanMark = "O";
+
+// Step 4 - Create a function to get the indexes of all the empty cells:
+function getAllEmptyCellsIndexes(currBdSt) {
+    return currBdSt.filter(i => i != "O" && i != "X");
+}
+
+// Step 5 - Create a winner determiner function:
+function checkIfWinnerFound(currBdSt, currMark) {
+    if (
+        (currBdSt[0] === currMark && currBdSt[1] === currMark && currBdSt[2] === currMark) ||
+        (currBdSt[3] === currMark && currBdSt[4] === currMark && currBdSt[5] === currMark) ||
+        (currBdSt[6] === currMark && currBdSt[7] === currMark && currBdSt[8] === currMark) ||
+        (currBdSt[0] === currMark && currBdSt[3] === currMark && currBdSt[6] === currMark) ||
+        (currBdSt[1] === currMark && currBdSt[4] === currMark && currBdSt[7] === currMark) ||
+        (currBdSt[2] === currMark && currBdSt[5] === currMark && currBdSt[8] === currMark) ||
+        (currBdSt[0] === currMark && currBdSt[4] === currMark && currBdSt[8] === currMark) ||
+        (currBdSt[2] === currMark && currBdSt[4] === currMark && currBdSt[6] === currMark)
+) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// Step 6 - Create the minimax algorithm:
+function minimax(currBdSt, currMark) {
+    // Step 8 - Store the indexes of all empty cells:
+    const availCellsIndexes = getAllEmptyCellsIndexes(currBdSt);
+    
+    // Step 9 - Check if there is a terminal state:
+    if (checkIfWinnerFound(currBdSt, humanMark)) {
+        return {score: -1};
+    } else if (checkIfWinnerFound(currBdSt, aiMark)) {
+        return {score: 1};
+    } else if (availCellsIndexes.length === 0) {
+        return {score: 0};
+    }
+    
+    // Step 10 - Create a place to record the outcome of each test drive:
+    const allTestPlayInfos = [];
+    
+    // Step 10 - Create a for-loop statement that will loop through each of the empty cells:
+    for (let i = 0; i < availCellsIndexes.length; i++) {
+        // Step 11 - Create a place to store this test-play’s terminal score:
+        const currentTestPlayInfo = {};
+        
+        // Step 11 - Save the index number of the cell this for-loop is currently processing:
+        currentTestPlayInfo.index = currBdSt[availCellsIndexes[i]];
+        
+        // Step 11 - Place the current player’s mark on the cell for-loop is currently processing:
+        currBdSt[availCellsIndexes[i]] = currMark;
+        
+        if (currMark === aiMark) {
+            // Step 11 - Recursively run the minimax function for the new board:
+            const result = minimax(currBdSt, humanMark);
+            
+            // Step 12 - Save the result variable’s score into the currentTestPlayInfo object:
+            currentTestPlayInfo.score = result.score;
+        } else {
+            // Step 11 - Recursively run the minimax function for the new board:
+            const result = minimax(currBdSt, aiMark);
+            
+            // Step 12 - Save the result variable’s score into the currentTestPlayInfo object:
+            currentTestPlayInfo.score = result.score;
+        }
+        
+        // Step 12 - Reset the current board back to the state it was before the current player made its move:
+        currBdSt[availCellsIndexes[i]] = currentTestPlayInfo.index;
+        
+        // Step 12 - Save the result of the current player’s test-play for future use:
+        allTestPlayInfos.push(currentTestPlayInfo);
+    }
+    
+    // Step 15 - Create a store for the best test-play’s reference:
+    let bestTestPlay = null;
+    
+    // Step 16 - Get the reference to the current player’s best test-play:
+    if (currMark === aiMark) {
+        let bestScore = -Infinity;
+        for (let i = 0; i < allTestPlayInfos.length; i++) {
+            if (allTestPlayInfos[i].score > bestScore) {
+                bestScore = allTestPlayInfos[i].score;
+                bestTestPlay = i;
+            }
+        }
+    } else {
+        let bestScore = Infinity;
+        for (let i = 0; i < allTestPlayInfos.length; i++) {
+            if (allTestPlayInfos[i].score < bestScore) {
+                bestScore = allTestPlayInfos[i].score;
+                bestTestPlay = i;
+            }
+        }
+    }
+    
+    // Step 17 - Get the object with the best test-play score for the current player:
+    return allTestPlayInfos[bestTestPlay];
+} 
+
+
+
+
+
+
+// BIG FUNCTION  ___________________________________________________________________________________________________
+// _________________________________________________________________________________________________________________
+// _________________________________________________________________________________________________________________
+// _________________________________________________________________________________________________________________
+// _________________________________________________________________________________________________________________
+// _________________________________________________________________________________________________________________
+// _________________________________________________________________________________________________________________
+// _________________________________________________________________________________________________________________
+// _________________________________________________________________________________________________________________
+// _________________________________________________________________________________________________________________
+// _________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+function boxTotalTrigger1vMinimax () {                                                    // MODE CPu vs JOUEUR
+    playerTurn.innerHTML = "Humain, commencez"
+    for (let box of boxTotal) {                                                  // PARCOURIR TOUS LES ELEMENTS DE L'ARRAY, ET 
+                                                                                   // ASSIGNER A BOX
+
+        box.addEventListener("click", () => {
+                 
+                 punch.play();
+                 seeIfBotPlayin = 2;
+                  currentPlayer = 0;
+                  if (currentPlayer === 0 && box.className !== 'morpion-box bloque') {
+                      
+                      nombreDeCoups -= 1;   // Les coups joués sont décrémmentés de 1
+                      hitNumber.innerHTML = "Coups restants : " + nombreDeCoups;
+
+                     
+
+                      box.style.background = "url(Img/circle.png) no-repeat center";           // Insére le 0 à l'endroit cliqué
+                      box.style.backgroundSize = "cover";
+                      
+                      playerTurn.innerHTML = "Ultron, les triangles"   // Affichage du joueur suivant
+                      
+                      
+                      let indexOfbox = boxTotal.indexOf(box);           // Prendre l'index de la box actuelle
+                      
+                      currentBoardState[indexOfbox] = "O";              // Transmettre la valeur de l'index sur l'array  current board de minimax
+                      
+                      
+                      currentPlayer = 1;             
+                      storageMorpion();
+                      
+                    
+                    if (isJeuActif !== 0 && currentPlayer == 1) {                        // Eteint le jeu si win
+                    letIaPlay();
+                    setTimeout(letPlayerPlay, 1000)  
+                    setTimeout(superIaMax, 1000);}                    // active les mouvements du cpu toutes les 1.5s
+                    storageMorpion();
+                      
+                    
+                  } else {
+                      return;                                       // ne déclenche aucun évenement si les conditions sont fausses.
+                  }
+                  
+                  
+        })
+    }
+};
+
+
+
+// IA MAX ACTIONS _____________________________________________________________________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________________________________________________________________________________
+// ____________________________________________________________________________________________________________________________________________________________________________________
+
+
+ function superIaMax() {          // Ordinateur très fort
+      const bestPlayInfo = minimax(currentBoardState, aiMark);  
+      boxTotal[bestPlayInfo.index].style.backgroundColor = "red"                
+      currentBoardState[bestPlayInfo.index] = "X";
+      kick.play();
+      nombreDeCoups -= 1;  
+      hitNumber.innerHTML = "Coups restants : " + nombreDeCoups; // -1 compteur de coups
+           
+            
+            boxTotal[bestPlayInfo.index].style.background = "url(Img/triangle.png) no-repeat center";                            // signature du robot
+            boxTotal[bestPlayInfo.index].style.backgroundSize = "cover";
+            boxTotal[bestPlayInfo.index].classList.add("bloque");                    // bloqué pour l'utilisateur
+            playerTurn.innerHTML = "Joueur 1, les ronds";                   // Signal à qui de jouer
+                      isWinningUltron(currentBoardState, aiMark);
+                      currentPlayer = 0;                                  // Renvoyer l'ascenseur
+      
+    
+    
+
+    }
+ //boxTotalTrigger1vCPU(); 
+
+function letIaPlay () {                                                                             // Fonction pour prévenir le click dans la zone de jeu pendant le tour du cpu
+    document.querySelector(".morpion-container").style.pointerEvents = "none"
+}
+ 
+function letPlayerPlay () {                                                                         // Rend le controle au jour              
+    document.querySelector(".morpion-container").style.pointerEvents = "auto"
+
+}
+
+
+
+    // AU CLICK LANCER FONCTION MAXIMAX __________________
+    //____________________________________________________
+    //____________________________________________________
+    //____________________________________________________
+    //____________________________________________________
+    //____________________________________________________
+    //____________________________________________________
+    //____________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    vsCpuHell.addEventListener("click", () => {
+        vsCpuHellChecked();
+       });
+    
+
+    function vsCpuHellChecked () {
+        if (vsCpuHell.checked === true) {
+            boxTotalTrigger1vMinimax();
+            vsCpu.style.pointerEvents = "none";
+            vsTwo.style.pointerEvents = "none";
+            document.querySelector(".listparties").style.pointerEvents = "none";
+            document.querySelector(".imgspe2").src = "Img/terminator.png";
+            document.querySelector(".nameOfThePlayer2").innerHTML = "Ultron";
+            document.querySelector(".nameOfThePlayer2").style.color = "white";
+            document.querySelector(".topbar").style.backgroundColor ="black"
+            petiteWin.play();
+            document.querySelector(".vsCpuHell").style.backgroundColor = "red";
+            
+            
+            
+        }
+    }       
+
+
+
+
+    function isWinningUltron (currBdSt, currMark){       // Examine chaque posibilité de victoires, et les ajoute
+                     
+        if (
+            (currBdSt[0] === currMark && currBdSt[1] === currMark && currBdSt[2] === currMark) ||
+            (currBdSt[3] === currMark && currBdSt[4] === currMark && currBdSt[5] === currMark) ||
+            (currBdSt[6] === currMark && currBdSt[7] === currMark && currBdSt[8] === currMark) ||
+            (currBdSt[0] === currMark && currBdSt[3] === currMark && currBdSt[6] === currMark) ||
+            (currBdSt[1] === currMark && currBdSt[4] === currMark && currBdSt[7] === currMark) ||
+            (currBdSt[2] === currMark && currBdSt[5] === currMark && currBdSt[8] === currMark) ||
+            (currBdSt[0] === currMark && currBdSt[4] === currMark && currBdSt[8] === currMark) ||
+            (currBdSt[2] === currMark && currBdSt[4] === currMark && currBdSt[6] === currMark)) {
+
+
+                  console.log("ultronWins");
+                  partiesjouées++;
+                  gameNumber.innerHTML = "Parties jouées : " + partiesjouées;                         // parties jouées
+                  joueur2base += 1;
+                  setTimeout(affichageV2, 100);                                                       // Afficher anim victoire après 100ms
+                  setTimeout(restoreaffichageV2, 2000);                                                // Restorer l'affichage normal après 2s
+                  restartGame.classList.add("restartGame");                // Styliser le bouton pour dire de continuer la partie
+                  restartGame.style.visibility = "visible";
+               
+                  petiteWin.play();
+                  storageMorpion();
+                  showPoints();
+
+
+
+
+            }
+
+                   } 
+
+    
